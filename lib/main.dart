@@ -15,9 +15,6 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      routes: {
-        BPage().toStringShort(): (context) => BPage(),
-      },
       home: APage(),
     );
   }
@@ -43,14 +40,15 @@ class _APageState extends State<APage> {
             child: Text('A'),
           ),
         ),
-        onTap: () => routePush(BPage()),
+        onTap: () => routePush(BPage(key: Key('1'))),
       ),
     );
   }
 }
 
-
 class BPage extends StatefulWidget {
+  BPage({Key key}) : super(key: key);
+
   @override
   _BPageState createState() => _BPageState();
 }
@@ -90,7 +88,7 @@ class _CPageState extends State<CPage> {
       ),
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        child:Center(
+        child: Center(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text('C'),
@@ -122,7 +120,9 @@ class _DPageState extends State<DPage> {
             child: Text('D'),
           ),
         ),
-        onTap: () =>  popUntil(ModalRoute.withName(BPage().toStringShort())),
+        onTap: () {
+          popUntil(ModalRoute.withName(BPage(key: Key('1')).toStringShort()));
+        },
       ),
     );
   }
