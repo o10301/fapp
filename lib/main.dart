@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nav_router/nav_router.dart';
 
+GlobalKey<ScaffoldState> _globalKey= GlobalKey();
+
 void main() {
   runApp(MyApp());
 }
@@ -40,7 +42,7 @@ class _APageState extends State<APage> {
             child: Text('A'),
           ),
         ),
-        onTap: () => routePush(BPage(key: Key('1'))),
+        onTap: () => routePush(BPage(key: _globalKey)),
       ),
     );
   }
@@ -121,7 +123,7 @@ class _DPageState extends State<DPage> {
           ),
         ),
         onTap: () {
-          popUntil(ModalRoute.withName(BPage(key: Key('1')).toStringShort()));
+          popUntil(ModalRoute.withName(BPage(key: _globalKey).toStringShort()));
         },
       ),
     );
